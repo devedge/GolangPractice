@@ -8,7 +8,7 @@ type Fund struct {
 func NewFund(initialBalance int) *Fund {
   // Return a pointer to a new struct
   return &Fund{
-    balance: initialBalance
+    balance: initialBalance,
   }
 }
 
