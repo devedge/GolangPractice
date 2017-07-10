@@ -4,10 +4,10 @@ import (
   "fmt"
   "image"
   "log"
-  "encoding/hex"
   "github.com/disintegration/imaging"
 )
 
+// "encoding/hex"
 // "image/color"
 
 func main() {
@@ -61,10 +61,53 @@ func main() {
   //}
 }
 
-func dhash(img image.Image, hashlen int) {
-  res := imaging.Grayscale(img) // Grayscale the image first for performance
-  res = imaging.Resize(res, hashlen + 1, hashlen, imaging.Lanczos) // Resize the image to 9x8px
 
+func dhash(img image.Image, bitLen int) {
+  // Width and height of the scaled-down image
+  width, height := bitLen + 1, bitLen
+
+  // Grayscale the image. Do this first for performance.
+  res := imaging.Grayscale(img)
+
+  // Downscale the image by 'bitLen' amount for a horizonal diff.
+  res = imaging.Resize(res, width, height, imaging.Lanczos)
+
+  var sig []byte  // The byte array signature that will be returned
+  var prev uint32 // Variable to store the previous pixel value
+
+  // Calculate the horizonal gradient difference
+  for y := 0; y < height; y++ {
+    for x := 0; x < width; x++ {
+      // Since the image is grayscaled, r = g = b
+      r,_,_,_ := res.At(x,y).RGBA() // Get the pixel at (x,y)
+      // r = r / 257 // Not needed, </> comparison still works the same
+
+      // If this is not the first value of the current row, then
+      // compare the gradient difference from the previous one
+      if x > 0 {
+        if prev < r {
+          sig = append(sig, 1) // if it's smaller, append '1'
+        } else {
+          sig = append(sig, 0) // else append '0'
+        }
+      }
+      prev = r // Set this current pixel value as the previous one
+    }
+  }
+
+  fmt.Println(sig)
+
+  // Initialize the difference matrix that will be returned
+  // DiffMatrix := make([][]int, bitLen)
+  // for i := range DiffMatrix {
+  //   DiffMatrix[i] = make([]int, bitLen)
+  // }
+  // DiffMatrix[x-1][y] = 1 // DiffMatrix is 8x8, not 9x8
+  // fmt.Print("1")
+  // row = append(row, 1)
+
+
+  /*
   // var diff [hashlen][hashlen]int
   // diff := make([][]int, hashlen)
   var pixels [][]uint32
@@ -119,10 +162,11 @@ func dhash(img image.Image, hashlen int) {
   // }
   fmt.Printf("%s\n", encStr)
   // fmt.Println(diff)
+  */
 }
 
 // Generate a pixel array that can be iterated over
-func grayscalePixelArray(img image.Image) [][]uint32 {
+/*func grayscalePixelArray(img image.Image) [][]uint32 {
   var pixels [][]uint32
 
   // Determine the bounds
@@ -145,6 +189,6 @@ func grayscalePixelArray(img image.Image) [][]uint32 {
     pixels = append(pixels, row)
   }
   return pixels
-}
+}*/
 
 // do a 'rotate' Go function and a 'scale' one
