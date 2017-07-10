@@ -1,6 +1,6 @@
 package funding
 
-type FundServer interface {
+type FundServer struct {
   Commands chan interface{}
   fund Fund
 }
