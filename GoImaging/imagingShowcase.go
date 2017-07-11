@@ -61,6 +61,9 @@ func main() {
   //}
 }
 
+func binaryArrayToHex()  {
+
+}
 
 func dhash(img image.Image, bitLen int) {
   // Width and height of the scaled-down image
@@ -95,7 +98,7 @@ func dhash(img image.Image, bitLen int) {
     }
   }
 
-  fmt.Println(sig)
+  fmt.Printf(sig)
 
   // Initialize the difference matrix that will be returned
   // DiffMatrix := make([][]int, bitLen)
