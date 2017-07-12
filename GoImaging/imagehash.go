@@ -2,6 +2,7 @@ package main
 // package imagehash
 
 import (
+  "os"
   "fmt"
   "log"
   "image"
@@ -9,16 +10,24 @@ import (
   "encoding/hex"
   "github.com/disintegration/imaging"
 )
+// "strconv"
 
 func main() {
   // Open test image
-  src, err := imaging.Open("lena_512.png")
+  src, err := imaging.Open(os.Args[1])
   if err != nil {
     log.Fatalf("Open failed: %v", err)
   }
 
+  hlen := 8
+  // input,_ := strconv.Atoi(os.Args[2])
+  // if input {
+  // } else {
+  //   hlen = input
+  // }
+
   // Hash the image both vertically and horizontally
-  hash,err := dhash(src, 8)
+  hash,err := dhash(src, hlen)
   if err != nil {
     log.Fatalf("Failed hash: %v", err)
   }
@@ -36,7 +45,7 @@ func main() {
 /**
  * Wrapper function that calculates both the horizontal and vertical
  * gradients, then returns them appended as <horizontal><vertical>
- * 
+ *
  * @method  dhash
  * @param   {Image}  img      The image file to perform the hash on
  * @param   {int}    hashLen  The integer length of the scaled-down image
@@ -63,7 +72,8 @@ func dhash(img image.Image, hashLen int) ([]byte, error) {
 
 
 /**
- * Wrapper function around the horizontalGradient function
+ * Wrapper function around the horizontalGradient function,
+ * so the Grayscale only ever runs once
  *
  * @method  dhashHorizontal
  * @param   {Image}  img      The image file to perform the hash on
@@ -84,7 +94,8 @@ func dhashHorizontal(img image.Image, hashLen int) ([]byte, error) {
 
 
 /**
- * Wrapper function around the horizontalGradient function
+ * Wrapper function around the verticalGradient function,
+ * so the Grayscale only ever runs once
  *
  * @method dhashVertical
  * @param   {Image}  img      The image file to perform the hash on
