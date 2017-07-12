@@ -5,46 +5,127 @@ import (
   "fmt"
   "log"
   "image"
-  "strings"
+  "errors"
+  "encoding/hex"
   "github.com/disintegration/imaging"
 )
 
 func main() {
   // Open test image
   src, err := imaging.Open("lena_512.png")
-  //lena_512.png
   if err != nil {
     log.Fatalf("Open failed: %v", err)
   }
-  dhash(src,8)
 
-  // fmt.Println(dhash(src,8))
-  // fmt.Println(hex.EncodeToString(dhash(src,8)))
-  // byteArrayToHex(dhash(src,8))
+  // Hash the image both vertically and horizontally
+  hash,err := dhash(src, 8)
+  if err != nil {
+    log.Fatalf("Failed hash: %v", err)
+  }
 
-  // fmt.Printf("%x\n", dhash(src,8))
+  // Print the hex representation of the byte array
+  fmt.Println(hex.EncodeToString(hash))
 }
 
 
-// Dhash vertical
-// Dhash horizontal
-// Dhash from image
-// Dhash from file
+// dhash vertical
+// dhash horizontal
+// dhash from image
+// dhash from file
 
-func dhash(img image.Image, bitLen int) {
-  // Width and height of the scaled-down image
-  width, height := bitLen + 1, bitLen
-
+/**
+ * Wrapper function that calculates both the horizontal and vertical
+ * gradients, then returns them appended as <horizontal><vertical>
+ * 
+ * @method  dhash
+ * @param   {Image}  img      The image file to perform the hash on
+ * @param   {int}    hashLen  The integer length of the scaled-down image
+ * @return  {[]byte}          The calculated byte array
+ * @return  {error}           Any errors
+ */
+func dhash(img image.Image, hashLen int) ([]byte, error) {
   // Grayscale the image. Do this first for performance.
-  res := imaging.Grayscale(img)
+  imgGray := imaging.Grayscale(img)
 
-  // Downscale the image by 'bitLen' amount for a horizonal diff.
-  res = imaging.Resize(res, width, height, imaging.Lanczos)
+  // Calculate both horizontal and vertical gradients
+  horiz, err1 := horizontalGradient(imgGray, hashLen)
+  vert, err2 := verticalGradient(imgGray, hashLen)
 
-  sig := make([]string, bitLen * bitLen) // The byte array signature that will be returned
-  i := 0
+  if err1 != nil {
+    return nil, err1
+  } else if err2 != nil {
+    return nil, err2
+  }
+
+  // Return the horizontal hash with the vertical one appended
+  return append(horiz, vert...), nil
+}
+
+
+/**
+ * Wrapper function around the horizontalGradient function
+ *
+ * @method  dhashHorizontal
+ * @param   {Image}  img      The image file to perform the hash on
+ * @param   {int}    hashLen  The integer length of the scaled-down image
+ * @return  {[]byte}          The calculated byte array
+ * @return  {error}           Any errors
+ */
+func dhashHorizontal(img image.Image, hashLen int) ([]byte, error) {
+  // Grayscale the image. Do this first for performance.
+  imgGray := imaging.Grayscale(img)
+
+  // Calculate the horizontal gradient
+  horiz, err1 := horizontalGradient(imgGray, hashLen)
+  if err1 != nil { return nil, err1 }
+
+  return horiz, nil
+}
+
+
+/**
+ * Wrapper function around the horizontalGradient function
+ *
+ * @method dhashVertical
+ * @param   {Image}  img      The image file to perform the hash on
+ * @param   {int}    hashLen  The integer length of the scaled-down image
+ * @return  {[]byte}          The calculated byte array
+ * @return  {error}           Any errors
+ */
+func dhashVertical(img image.Image, hashLen int) ([]byte, error) {
+  // Grayscale the image. Do this first for performance.
+  imgGray := imaging.Grayscale(img)
+
+  // Calculate the horizontal gradient
+  horiz, err1 := verticalGradient(imgGray, hashLen)
+  if err1 != nil { return nil, err1 }
+
+  return horiz, nil
+}
+
+
+/**
+ * This function calculates the horizontal gradient difference of
+ * an image.
+ *
+ * @method horizontalGradient
+ * @param   {Image}  img      The image file to perform the hash on
+ * @param   {int}    hashLen  The integer length of the scaled-down image
+ * @return  {[]byte}          The calculated byte array
+ * @return  {error}           Any errors
+ */
+func horizontalGradient(img image.Image, hashLen int) ([]byte, error) {
+  // Width and height of the scaled-down image
+  width, height := hashLen + 1, hashLen
+
+  // Downscale the image by 'hashLen' amount for a horizonal diff.
+  res := imaging.Resize(img, width, height, imaging.Lanczos)
+
+  // Create a new bitArray
+  bitArray,err := NewAppendBit(hashLen * hashLen)
+  if err != nil { return nil, err }
+
   var prev uint32 // Variable to store the previous pixel value
-  var test uint8
 
   // Calculate the horizonal gradient difference
   for y := 0; y < height; y++ {
@@ -56,110 +137,141 @@ func dhash(img image.Image, bitLen int) {
       // compare the gradient difference from the previous one
       if x > 0 {
         if prev < r {
-          sig[i] = "1" // if it's smaller, append '1'
+          bitArray.appendBit(1) // if it's smaller, append '1'
         } else {
-          sig[i] = "0" // else append '0'
+          bitArray.appendBit(0) // else append '0'
         }
-        i++ // increment the index into the 'sig' array
       }
       prev = r // Set this current pixel value as the previous one
     }
   }
-  fmt.Println(sig)
-  // return matchHex(sig)
+  return bitArray.getArray(), nil
 }
 
-func horizontalGradient(img image.Image, bitLen int, width height int)  {
-  cbyte := make([]byte, bitLen)
-  var mask byte = 0x01
-  i := 0
 
-  for y := 0; y < height; y++ {
-    cbyte[i] = 0x00 // init current byte
+/**
+ * This function calculates the vertical gradient difference of
+ * an image.
+ *
+ * @method verticalGradient
+ * @param   {Image}  img      The image file to perform the hash on
+ * @param   {int}    hashLen  The integer length of the scaled-down image
+ * @return  {[]byte}          The calculated byte array
+ * @return  {error}           Any errors
+ */
+func verticalGradient(img image.Image, hashLen int) ([]byte, error) {
+  // Width and height of the scaled-down image
+  width, height := hashLen, hashLen + 1
 
-    for x := 0; x < width; x++ {
-      r,_,_,_ := res.At(x,y).RGBA()
-      if x > 0 {
+  // Downscale the image by 'hashLen' amount for a horizonal diff.
+  res := imaging.Resize(img, width, height, imaging.Lanczos)
 
-        // need to do an 'append action'
+  // Create a new bitArray
+  bitArray,err := NewAppendBit(hashLen * hashLen)
+  if err != nil { return nil, err }
+
+  var prev uint32 // Variable to store the previous pixel value
+
+  // Calculate the horizonal gradient difference
+  for x := 0; x < width; x++ {
+    for y := 0; y < height; y++ {
+      // Since the image is grayscaled, r = g = b
+      r,_,_,_ := res.At(x,y).RGBA() // Get the pixel at (x,y)
+
+      // If this is not the first value of the current row, then
+      // compare the gradient difference from the previous one
+      if y > 0 {
         if prev < r {
-          sig[i] = "1"
-          mask <<  8 - i
+          bitArray.appendBit(1) // if it's smaller, append '1'
         } else {
-          sig[i] = "0"
+          bitArray.appendBit(0) // else append '0'
         }
-        i++
       }
-      prev = r
-    }
-
-    // add the latest byte to the byte array
-  }
-}
-
-// func arrayToByte(arr []string)  {
-//   len := len(arr)
-//   if len % 4 != 0 { fmt.Println("err") }
-//
-//   res := make([]byte, len)
-//   for i := 0; i < len; i++ {
-//
-//   }
-// }
-
-
-
-func matchHex(arr []string) string {
-  out := ""
-  for i := 0; i < len(arr) / 4; i++ {
-    switch strings.Join(arr[i:i+4], "") {
-      case "0000":
-        out += "0"
-      case "0001":
-        out += "1"
-      case "0010":
-        out += "2"
-      case "0011":
-        out += "3"
-      case "0100":
-        out += "4"
-      case "0101":
-        out += "5"
-      case "0110":
-        out += "6"
-      case "0111":
-        out += "7"
-      case "1000":
-        out += "8"
-      case "1001":
-        out += "9"
-      case "1010":
-        out += "a"
-      case "1011":
-        out += "b"
-      case "1100":
-        out += "c"
-      case "1101":
-        out += "d"
-      case "1110":
-        out += "e"
-      case "1111":
-        out += "f"
+      prev = r // Set this current pixel value as the previous one
     }
   }
-  return out
+  return bitArray.getArray(), nil
 }
 
 
-// func binaryArrayToHex(arr []byte) {
-  // def b2hx(arr):
-  // ...     h = 0
-  // ...     s = []
-  // ...     for i, v in enumerate(arr):
-  // ...             if v:
-  // ...                     h += 2**(i % 8)
-  // ...             if (i % 8) == 7:
-  // ...                     s.append(hex(h)[2:].rjust(2, '0'))
-  // ...                     h = 0
-  // ...     return "".join(s)
-// }
+// Struct to simplify appending bits to a byte array,
+// from left to right
+type AppendBit struct {
+  byteArray []byte
+  max int
+  mask0 byte
+  mask1 byte
+  arrayIdx int
+  bitIdx uint
+}
+
+/**
+ * Constructor for the AppendBit struct. It must be initialized
+ * with a non-zero int that is a multiple of 8.
+ * Usage:
+ *    bitArray := NewAppendBit(64)
+ *
+ * @method NewAppendBit
+ * @param  {int}        numBits The number of bits, as an int
+ * @return {AppendBit}  The AppendBit struct
+ * @return {error}      If there is an error
+ */
+func NewAppendBit(numBits int) (*AppendBit, error) {
+  // If numBits is invalid
+  if (numBits == 0) || (numBits % 8 != 0) {
+    return nil, errors.New("'numBits' must be a non-zero multiple of 8")
+  }
+
+  return &AppendBit{
+    byteArray: make([]byte, numBits / 8),
+    max: numBits / 8,
+    mask0: 0x00,
+    mask1: 0x01,
+    arrayIdx: 0,
+    bitIdx: 7,
+  }, nil
+}
+
+
+/**
+ * Append a bit to the byte array from left to right
+ * @method appendBit
+ * @param  {int} bit  Append a one with '1', and zero with '0'
+ */
+func (ab *AppendBit) appendBit(bit int) error {
+  if ab.arrayIdx == ab.max {
+    return errors.New("Cannot contine to append to a full byteArray")
+  }
+
+  // Shift the 'mask' (bit of 1 or 0) by the proper amount to
+  // fill the byte up from left to right.
+  switch bit {
+    case 0:
+      ab.byteArray[ab.arrayIdx] |= ab.mask0 << ab.bitIdx
+    case 1:
+      ab.byteArray[ab.arrayIdx] |= ab.mask1 << ab.bitIdx
+  }
+
+  if ab.bitIdx > 0 {
+    // Decrement the index into the current byte so the next
+    // bit to be set will be on the right.
+    ab.bitIdx--
+  } else {
+    // The last bit in the current byte has been set, so increment
+    // the index into the byte array, and reset the bit index.
+    ab.arrayIdx++
+    ab.bitIdx = 7
+  }
+
+  return nil
+}
+
+
+/**
+ * Returns the current byte array
+ * @method getArray
+ * @return {[]byte]}  The byte array
+ */
+func (ab AppendBit) getArray() []byte {
+  return ab.byteArray
+}
