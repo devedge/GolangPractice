@@ -2,17 +2,18 @@ package main
 
 import (
   "fmt"
-  "log"
-  "./imagehash.go"
-  "github.com/disintegration/imaging"
+  "encoding/hex"
+  "./imagehash"
 )
 
 func main() {
   // Open test image
-  src, err := imaging.Open("lena_512.png")
-  if err != nil {
-    log.Fatalf("Open failed: %v", err)
-  }
+  src,_ := imagehash.OpenImg("lena_512.png")
+  // if err != nil {
+  //   log.Fatalf("Open failed: %v", err)
+  // }
 
-  fmt.Println(imagehash.Dhash(src,8))
+  hash,_ := imagehash.Dhash(src, 8)
+
+  fmt.Println(hex.EncodeToString(hash))
 }
