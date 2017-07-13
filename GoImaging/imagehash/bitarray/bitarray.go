@@ -1,6 +1,9 @@
 package bitarray
 
-import "errors"
+import (
+  "errors"
+  "strconv"
+)
 
 // Struct to simplify appending bits to a byte array,
 // from left to right
@@ -49,7 +52,7 @@ func NewBitArray(numBits int) (*BitArray, error) {
  */
 func (ab *BitArray) AppendBit(bit int) error {
   if ab.arrayIdx == ab.max {
-    return errors.New("Cannot contine to append to a full byte array")
+    return errors.New("cannot contine to append to a full byte array")
   }
 
   // Shift the 'mask' (bit of 1 or 0) by the proper amount to
@@ -59,6 +62,8 @@ func (ab *BitArray) AppendBit(bit int) error {
       ab.byteArray[ab.arrayIdx] |= ab.mask0 << ab.bitIdx
     case 1:
       ab.byteArray[ab.arrayIdx] |= ab.mask1 << ab.bitIdx
+    default:
+      return errors.New("can only append with 1 or 0, but received: " + strconv.Itoa(bit))
   }
 
   if ab.bitIdx > 0 {
