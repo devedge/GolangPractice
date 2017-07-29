@@ -5,6 +5,7 @@ import (
   "strconv"
 )
 
+
 // Struct to simplify appending bits to a byte array,
 // from left to right
 type BitArray struct {
