@@ -3,13 +3,15 @@ This list was taken from a post [found on reddit](https://www.reddit.com/r/cscar
 
 Each section (General/Strings/Trees...) is under its own subdirectory.
 
+Each problem can be run with `go run <filename>`. The problem is always solved
+as a function, and the test data is inside the problem's `main()` function.
 
 ### General
- - DONE - Find the most frequent integer in an array
- - DONE - Find pairs in an integer array whose sum is equal to 10 (bonus: do it in linear time)
- - DONE - Given 2 integer arrays, determine of the 2nd array is a rotated version of the 1st array. Ex. Original Array A={1,2,3,5,6,7,8} Rotated Array B={5,6,7,8,1,2,3}
- - DONE - Write fibonacci iteratively and recursively (bonus: use dynamic programming)
- - DONE - Find the only element in an array that only occurs once.
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/mostfreqint.go) - Find the most frequent integer in an array
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/sum10.go) - Find pairs in an integer array whose sum is equal to 10 (bonus: do it in linear time)
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/rotatedarrays.go) - Given 2 integer arrays, determine of the 2nd array is a rotated version of the 1st array. Ex. Original Array A={1,2,3,5,6,7,8} Rotated Array B={5,6,7,8,1,2,3}
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/fibonacci.go) - Write fibonacci iteratively and recursively (bonus: use dynamic programming)
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/singlenum.go) - Find the only element in an array that only occurs once.
  - DONE - Find the common elements of 2 int arrays
  - DONE - Implement binary search of a sorted array of integers
  - DONE - Implement binary search in a rotated array (ex. {5,6,7,8,1,2,3})
