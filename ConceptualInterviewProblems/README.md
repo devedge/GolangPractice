@@ -18,7 +18,7 @@ as a function, and the test data is inside the problem's `main()` function.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/primesievedynamic.go) - Use dynamic programming to find the first X prime numbers
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/printbinaryint.go) - Write a function that prints out the binary form of an int
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/parseint.go) - Implement parseInt
- - DONE - Implement squareroot function
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/sqrt.go) - Implement squareroot function
  - DONE - Implement an exponent function (bonus: now try in log(n) time)
  - DONE - Write a multiply function that multiples 2 integers without using *
  - DONE - HARD: Given a function rand5() that returns a random int between 0 and 5, implement rand7()
