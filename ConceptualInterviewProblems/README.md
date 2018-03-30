@@ -19,7 +19,7 @@ as a function, and the test data is inside the problem's `main()` function.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/printbinaryint.go) - Write a function that prints out the binary form of an int
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/parseint.go) - Implement parseInt
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/sqrt.go) - Implement squareroot function
- - DONE - Implement an exponent function (bonus: now try in log(n) time)
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/exponent.go) - Implement an exponent function (bonus: now try in log(n) time)
  - DONE - Write a multiply function that multiples 2 integers without using *
  - DONE - HARD: Given a function rand5() that returns a random int between 0 and 5, implement rand7()
  - DONE - HARD: Given a 2D array of 1s and 0s, count the number of "islands of 1s" (e.g. groups of connecting 1s)
