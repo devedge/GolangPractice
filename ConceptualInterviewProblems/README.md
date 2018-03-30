@@ -16,8 +16,8 @@ as a function, and the test data is inside the problem's `main()` function.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/binarysearch.go) - Implement binary search of a sorted array of integers
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/binarysearch-rotated.go) - Implement binary search in a rotated array (ex. {5,6,7,8,1,2,3})
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/primesievedynamic.go) - Use dynamic programming to find the first X prime numbers
- - DONE - Write a function that prints out the binary form of an int
- - DONE - Implement parseInt
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/printbinaryint.go) - Write a function that prints out the binary form of an int
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/parseint.go) - Implement parseInt
  - DONE - Implement squareroot function
  - DONE - Implement an exponent function (bonus: now try in log(n) time)
  - DONE - Write a multiply function that multiples 2 integers without using *
