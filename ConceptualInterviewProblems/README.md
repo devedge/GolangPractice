@@ -14,8 +14,8 @@ as a function, and the test data is inside the problem's `main()` function.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/singlenum.go) - Find the only element in an array that only occurs once.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/commonelements.go) - Find the common elements of 2 int arrays
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/binarysearch.go) - Implement binary search of a sorted array of integers
- - DONE - Implement binary search in a rotated array (ex. {5,6,7,8,1,2,3})
- - DONE - Use dynamic programming to find the first X prime numbers
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/binarysearch-rotated.go) - Implement binary search in a rotated array (ex. {5,6,7,8,1,2,3})
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/primesievedynamic.go) - Use dynamic programming to find the first X prime numbers
  - DONE - Write a function that prints out the binary form of an int
  - DONE - Implement parseInt
  - DONE - Implement squareroot function
