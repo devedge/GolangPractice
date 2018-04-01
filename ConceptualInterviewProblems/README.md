@@ -22,4 +22,15 @@ as a function, and the test data is inside the problem's `main()` function.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/exponent.go) - Implement an exponent function (bonus: now try in log(n) time)
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/multiply.go) - Write a multiply function that multiples 2 integers without using *
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/rand7.go) - HARD: Given a function rand5() that returns a random int between 0 and 5, implement rand7()
- - DONE - HARD: Given a 2D array of 1s and 0s, count the number of "islands of 1s" (e.g. groups of connecting 1s)
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/islandclusters.go) - HARD: Given a 2D array of 1s and 0s, count the number of "islands of 1s" (e.g. groups of connecting 1s)
+
+### Strings
+ - DONE - Find the first non-repeated character in a String
+ - DONE - Reverse a String iteratively and recursively
+ - DONE - Determine if 2 Strings are anagrams
+ - DONE - Check if String is a palindrome
+ - DONE - Check if a String is composed of all unique characters
+ - Determine if a String is an int or a double
+ - HARD: Find the shortest palindrome in a String
+ - HARD: Print all permutations of a String
+ - HARD: Given a single-line text String and a maximum width value, write the function 'String justify(String text, int maxWidth)' that formats the input text using full-justification, i.e., extra spaces on each line are equally distributed between the words; the first word on each line is flushed left and the last word on each line is flushed right
