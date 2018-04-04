@@ -25,8 +25,8 @@ as a function, and the test data is inside the problem's `main()` function.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/General/islandclusters.go) - HARD: Given a 2D array of 1s and 0s, count the number of "islands of 1s" (e.g. groups of connecting 1s)
 
 ### Strings
- - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/firstnon-repeated.go) - Find the first non-repeated character in a String
- - DONE - Reverse a String iteratively and recursively
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/firstnon-repeated.go) - Find the first non-repeated character in a String
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/reverse-string.go) - Reverse a String iteratively and recursively
  - DONE - Determine if 2 Strings are anagrams
  - DONE - Check if String is a palindrome
  - DONE - Check if a String is composed of all unique characters
