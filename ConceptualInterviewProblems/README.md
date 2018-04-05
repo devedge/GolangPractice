@@ -28,7 +28,7 @@ as a function, and the test data is inside the problem's `main()` function.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/firstnon-repeated.go) - Find the first non-repeated character in a String
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/reverse-string.go) - Reverse a String iteratively and recursively
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/anagrams.go) - Determine if 2 Strings are anagrams
- - DONE - Check if String is a palindrome
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/palindrome.go) - Check if String is a palindrome
  - DONE - Check if a String is composed of all unique characters
  - Determine if a String is an int or a double
  - HARD: Find the shortest palindrome in a String
