@@ -36,8 +36,8 @@ as a function, and the test data is inside the problem's `main()` function.
  - HARD: Given a single-line text String and a maximum width value, write the function 'String justify(String text, int maxWidth)' that formats the input text using full-justification, i.e., extra spaces on each line are equally distributed between the words; the first word on each line is flushed left and the last word on each line is flushed right
 
 ### Trees
- - DONE - Implement a BST with insert and delete functions
- - DONE - Print a tree using BFS and DFS
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Trees/binarySearchTree.go) - Implement a BST with insert and delete functions
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Trees/binarySearchTree.go) - Print a tree using BFS and DFS
  - Write a function that determines if a tree is a BST
  - Find the smallest element in a BST
  - Find the 2nd largest number in a BST
