@@ -10,19 +10,54 @@ import (
 
 func main() {
 	// Always initialize and operate on a tree struct, not the nodes.
+	// This is not only an example, but also a reference usage of this
+	// 'binaryTree' implemtation.
 	var binaryTree tree
 
+  fmt.Println("Inserting these values sequentially: 4, 10, 1, 0, 8...")
 	binaryTree.insert(4)
 	binaryTree.insert(10)
 	binaryTree.insert(1)
 	binaryTree.insert(0)
 	binaryTree.insert(8)
 
-	fmt.Printf("DFS: ")
+  fmt.Println("\nExpected tree structure reference for BFS and DFS answers:")
+  fmt.Println(`
+    4
+   / \
+  1   10
+ /   /
+0   8`)
+
+	fmt.Println("\nExpected Depth-First Search  : 4 1 0 10 8")
+	fmt.Printf("Actual Depth-First Search    : ")
 	binaryTree.traverseDFS()
 
-	fmt.Printf("BFS: ")
+  fmt.Println("\nExpected Breadth-First Search: 4 1 10 0 8")
+	fmt.Printf("Actual Breadth-First Search  : ")
 	binaryTree.traverseBFS()
+
+  fmt.Println("\nDeleting 10 from BST...")
+  binaryTree.delete(10)
+  fmt.Printf("BFS of new tree: ")
+  binaryTree.traverseBFS()
+
+  fmt.Println("\nInserting 3 to BST...")
+  binaryTree.insert(3)
+  fmt.Printf("BFS of new tree: ")
+  binaryTree.traverseBFS()
+
+  fmt.Println("\nInserting 9, 12, and 11 to BST...")
+  binaryTree.insert(9)
+  binaryTree.insert(12)
+  binaryTree.insert(11)
+  fmt.Printf("BFS of new tree: ")
+  binaryTree.traverseBFS()
+
+  fmt.Println("\nDeleting 8 from BST...")
+  binaryTree.delete(8)
+  fmt.Printf("BFS of new tree: ")
+  binaryTree.traverseBFS()
 }
 
 // First, implement two structs: one for the root, and
@@ -131,11 +166,11 @@ func (n *node) delete(val int, parent *node) {
 		return
 	}
 
-	// Value is smaller, so recursively insert on the left
+	// Value is smaller, so recursively delete on the left
 	if val < n.value {
 		n.left.delete(val, n)
 
-		// Value is larger, so recursively insert on the right
+		// Value is larger, so recursively delete on the right
 	} else if val > n.value {
 		n.right.delete(val, n)
 
@@ -156,9 +191,9 @@ func (n *node) delete(val int, parent *node) {
 			n.replaceSelf(n.left, parent)
 
 		} else {
-			// Both cildren exist. From here, we replace this node's value with the
-			// smallest one on the right subtree. Then, we delete that child smallest
-			// child node.
+			// Both children exist. From here, we replace this node's value with the
+			// smallest one on the right subtree. Then, we delete that rightmost,
+			// smallest child node.
 
 			// Get the node with the smallest value on the right subtree
 			min, minparent := n.right.findMin(n)
@@ -211,15 +246,19 @@ func (n *node) findMin(parent *node) (*node, *node) {
 	}
 }
 
-// traverse & print a tree with Breadth-First Search
+// Traverse the Binary Tree using Breadth-First Search. This simply prints
+// all elements in BFS order, on the same line.
+// It works by printing the root, left child, right child, and then recurses
+// into each child's children, repeating the process.
 func (t *tree) traverseBFS() {
 	if t.root == nil {
 		fmt.Println("Cannot traverse a nil tree")
 	} else {
-		t.root.traverseBFS()
-		fmt.Println()
+		t.root.traverseBFS() // traverse the entire tree
+		fmt.Println() // print a newline after the output
 	}
 }
+// Traverse a node with BFS. This is the actual implementation
 func (n *node) traverseBFS() {
 	// print root
 	fmt.Printf("%d ", n.value)
@@ -234,32 +273,34 @@ func (n *node) traverseBFS() {
 		fmt.Printf("%d ", n.right.value)
 	}
 
-	// if left is not nil
+	// Since 'n.left' is already printed, print its left and right children
 	if n.left != nil {
-		// if its left child is non-nil, traverse
+    // Traverse left's left child
 		if n.left.left != nil {
 			n.left.left.traverseBFS()
 		}
-		// if its right child is non-nil, traverse
+		// Traverse left's right child
 		if n.left.right != nil {
 			n.left.right.traverseBFS()
 		}
 	}
 
-	// if right is non-nil
+	// Since 'n.right' is already printed, print its left and right children
 	if n.right != nil {
-		// if its left child is non-nil, traverse
+		// Traverse right's left child
 		if n.right.left != nil {
 			n.right.left.traverseBFS()
 		}
-		// if its right child is non-nil, traverse
+		// Traverse right's right child
 		if n.right.right != nil {
 			n.right.right.traverseBFS()
 		}
 	}
 }
 
-// traverse & print a tree with Depth-First Search
+// Traverse the Binary Tree using Depth-First Search. Like the BFS
+// implementation, this prints all the elements out, and then prints a newline.
+//
 func (t *tree) traverseDFS() {
 	if t.root == nil {
 		fmt.Println("Cannot traverse a nil tree")
@@ -268,13 +309,18 @@ func (t *tree) traverseDFS() {
 		fmt.Println()
 	}
 }
+// Implementation of DFS.
 func (n *node) traverseDFS() {
+  // With every traversal, print the node immediately
 	fmt.Printf("%d ", n.value)
 
+  // Traverse as deep left as possible. However, after recursing as deep as
+  // possible, the next right node will be traversed as deeply as possible.
 	if n.left != nil {
 		n.left.traverseDFS()
 	}
 
+  // Traverse rightward immediately after
 	if n.right != nil {
 		n.right.traverseDFS()
 	}
@@ -286,17 +332,3 @@ func (n *node) traverseDFS() {
 //func (n *node) isValidBST(maxVal, minVal int) bool {
 
 //}
-
-/**
-
-    4
-   / \
-  1   10
- /   /
-0   8
-
-DFS: 4, 1, 0, 10, 8
-
-BFS: 4, 1, 10, 0, 8
-
-**/
