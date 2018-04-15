@@ -30,16 +30,16 @@ as a function, and the test data is inside the problem's `main()` function.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/anagrams.go) - Determine if 2 Strings are anagrams
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/palindrome.go) - Check if String is a palindrome
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/uniqueStrings.go) - Check if a String is composed of all unique characters
- - Determine if a String is an int or a double
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/intORdouble.go) - Determine if a String is an int or a double
  - HARD: Find the shortest palindrome in a String
  - HARD: Print all permutations of a String
  - HARD: Given a single-line text String and a maximum width value, write the function 'String justify(String text, int maxWidth)' that formats the input text using full-justification, i.e., extra spaces on each line are equally distributed between the words; the first word on each line is flushed left and the last word on each line is flushed right
 
 ### Trees
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Trees/binarySearchTree.go) - Implement a BST with insert and delete functions
- - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Trees/binarySearchTree.go) - Print a tree using BFS and DFS
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Trees/binarySearchTree.go#L249) - Print a tree using BFS and DFS
  - Write a function that determines if a tree is a BST
- - Find the smallest element in a BST
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Trees/binarySearchTree.go#L237) - Find the smallest element in a BST
  - Find the 2nd largest number in a BST
  - Given a binary tree which is a sum tree (child nodes add to parent), write an algorithm to determine whether the tree is a valid sum tree
  - Find the distance between 2 nodes in a BST and a normal binary tree
@@ -49,4 +49,4 @@ as a function, and the test data is inside the problem's `main()` function.
  - Given a tree, verify that it contains a subtree.
  - HARD: Find the max distance between 2 nodes in a BST.
  - HARD: Construct a BST given the pre-order and in-order traversal Strings
- 
+
