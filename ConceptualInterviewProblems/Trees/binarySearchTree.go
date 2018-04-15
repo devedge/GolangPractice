@@ -14,15 +14,15 @@ func main() {
 	// 'binaryTree' implemtation.
 	var binaryTree tree
 
-  fmt.Println("Inserting these values sequentially: 4, 10, 1, 0, 8...")
+	fmt.Println("Inserting these values sequentially: 4, 10, 1, 0, 8...")
 	binaryTree.insert(4)
 	binaryTree.insert(10)
 	binaryTree.insert(1)
 	binaryTree.insert(0)
 	binaryTree.insert(8)
 
-  fmt.Println("\nExpected tree structure reference for BFS and DFS answers:")
-  fmt.Println(`
+	fmt.Println("\nExpected tree structure reference for BFS and DFS answers:")
+	fmt.Println(`
     4
    / \
   1   10
@@ -33,31 +33,31 @@ func main() {
 	fmt.Printf("Actual Depth-First Search    : ")
 	binaryTree.traverseDFS()
 
-  fmt.Println("\nExpected Breadth-First Search: 4 1 10 0 8")
+	fmt.Println("\nExpected Breadth-First Search: 4 1 10 0 8")
 	fmt.Printf("Actual Breadth-First Search  : ")
 	binaryTree.traverseBFS()
 
-  fmt.Println("\nDeleting 10 from BST...")
-  binaryTree.delete(10)
-  fmt.Printf("BFS of new tree: ")
-  binaryTree.traverseBFS()
+	fmt.Println("\nDeleting 10 from BST...")
+	binaryTree.delete(10)
+	fmt.Printf("BFS of new tree: ")
+	binaryTree.traverseBFS()
 
-  fmt.Println("\nInserting 3 to BST...")
-  binaryTree.insert(3)
-  fmt.Printf("BFS of new tree: ")
-  binaryTree.traverseBFS()
+	fmt.Println("\nInserting 3 to BST...")
+	binaryTree.insert(3)
+	fmt.Printf("BFS of new tree: ")
+	binaryTree.traverseBFS()
 
-  fmt.Println("\nInserting 9, 12, and 11 to BST...")
-  binaryTree.insert(9)
-  binaryTree.insert(12)
-  binaryTree.insert(11)
-  fmt.Printf("BFS of new tree: ")
-  binaryTree.traverseBFS()
+	fmt.Println("\nInserting 9, 12, and 11 to BST...")
+	binaryTree.insert(9)
+	binaryTree.insert(12)
+	binaryTree.insert(11)
+	fmt.Printf("BFS of new tree: ")
+	binaryTree.traverseBFS()
 
-  fmt.Println("\nDeleting 8 from BST...")
-  binaryTree.delete(8)
-  fmt.Printf("BFS of new tree: ")
-  binaryTree.traverseBFS()
+	fmt.Println("\nDeleting 8 from BST...")
+	binaryTree.delete(8)
+	fmt.Printf("BFS of new tree: ")
+	binaryTree.traverseBFS()
 }
 
 // First, implement two structs: one for the root, and
@@ -255,9 +255,10 @@ func (t *tree) traverseBFS() {
 		fmt.Println("Cannot traverse a nil tree")
 	} else {
 		t.root.traverseBFS() // traverse the entire tree
-		fmt.Println() // print a newline after the output
+		fmt.Println()        // print a newline after the output
 	}
 }
+
 // Traverse a node with BFS. This is the actual implementation
 func (n *node) traverseBFS() {
 	// print root
@@ -275,7 +276,7 @@ func (n *node) traverseBFS() {
 
 	// Since 'n.left' is already printed, print its left and right children
 	if n.left != nil {
-    // Traverse left's left child
+		// Traverse left's left child
 		if n.left.left != nil {
 			n.left.left.traverseBFS()
 		}
@@ -309,18 +310,19 @@ func (t *tree) traverseDFS() {
 		fmt.Println()
 	}
 }
+
 // Implementation of DFS.
 func (n *node) traverseDFS() {
-  // With every traversal, print the node immediately
+	// With every traversal, print the node immediately
 	fmt.Printf("%d ", n.value)
 
-  // Traverse as deep left as possible. However, after recursing as deep as
-  // possible, the next right node will be traversed as deeply as possible.
+	// Traverse as deep left as possible. However, after recursing as deep as
+	// possible, the next right node will be traversed as deeply as possible.
 	if n.left != nil {
 		n.left.traverseDFS()
 	}
 
-  // Traverse rightward immediately after
+	// Traverse rightward immediately after
 	if n.right != nil {
 		n.right.traverseDFS()
 	}
