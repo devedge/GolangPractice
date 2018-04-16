@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	arr := []int{1, 2, 3, 4, 5, 5, 6, 7, 8, 8, 6, 1, 7, 8, 2, 3, 4}
+	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 8, -2, 12, 4}
 	sum := 10
 	fmt.Println("Pair that adds up to", sum, "from the following array are:")
 	fmt.Println(arr)
