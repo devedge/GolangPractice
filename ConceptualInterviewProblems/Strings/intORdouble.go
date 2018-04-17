@@ -43,10 +43,10 @@ func parseValue(str string) string {
 		// Check if the first character is a minus sign. If the dash (-)
 		// is in any other position, it's invalid.
 		if char == asc_dash {
-			if index != 0 {
-				return "invalid"
+			if index == 0 {
+				continue // first character is '-', skip to next loop
 			} else {
-				continue // first character was '-', skip to next loop
+				return "invalid"
 			}
 		}
 

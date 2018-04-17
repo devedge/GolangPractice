@@ -14,17 +14,20 @@ func main() {
 	fmt.Println(findpairs(arr, sum))
 }
 
+// Find the pairs in an array that add up to a sum in O(N) time. This
+// approach uses hashtables (maps in Go) to keep track of found values.
 func findpairs(arr []int, sum int) [][]int {
 	vmap := make(map[int]int, len(arr)) // init map with len(arr) for speed
-	dups := make(map[int]int)
+	dups := make(map[int]int) // map to keep track of duplicates
 	pairs := [][]int{}
 
-	// Add every value to the map. O(n)
+	// Add every value to the map, keyed by value, and referencing its index.
+	// This will override duplicate entries.
 	for i, val := range arr {
 		vmap[val] = i
 	}
 
-	// Check if 'sum - a value = something in the map'. O(1)
+	// Check if "sum - a value = something in the map"
 	for a, chk := range arr {
 		if b, ok := vmap[sum-chk]; ok {
 
@@ -42,3 +45,21 @@ func findpairs(arr []int, sum int) [][]int {
 
 	return pairs
 }
+
+/**
+
+1, 9
+
+2, 8
+
+3, 7
+
+4, 6
+
+-2, 12
+
+Don't add:
+5, 7, 8, 4
+
+
+*/
