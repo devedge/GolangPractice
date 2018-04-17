@@ -1,3 +1,5 @@
+// Parse a string, and determine whether or not it's an int
+
 package main
 
 import (
@@ -6,6 +8,7 @@ import (
 	"reflect"
 )
 
+// Use ascii keypoints to determine the ints
 const asc_start = 48
 const asc_end = 57
 

@@ -1,3 +1,5 @@
+// Find the first non-repeated character in a given string
+
 package main
 
 import (
