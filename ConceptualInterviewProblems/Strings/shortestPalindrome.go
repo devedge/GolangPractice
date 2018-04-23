@@ -1,11 +1,9 @@
-// Note: while this question asks for the "shortest palindrome IN a string",
-// it could mean "find the shortest palindrome you can construct from a string".
+// Find the shortest palindrome in a string.
+// This uses Manchester's Algorithm to build an array of palindrome centers,
+// and then uses that to determine the shortest palindrome.
 //
-// Nevertheless, this code takes on three solutions:
-// - Constructing the smallest palindrome from a string
-// - Finding the shortest palindrome in a string ????
-// - Find the largest palindrome in a string. This one is very hard to do
-//    in O(N) time, and requires an algorithm called Manchester's Algorithm.
+// Since technically the smallest palindrome is one letter, this code also
+// implements finding the largest palindrome in a string too.
 
 package main
 
@@ -29,6 +27,7 @@ func main() {
 	fmt.Printf("Shortest palindrome in '%s': %s\n", p4, shortestPalindrome(p4))
 }
 
+// TODO
 // Given a string, return the smallest palindrome that can be created
 // with it
 // func createShortest(str string) string {
@@ -152,7 +151,7 @@ func manchester(str string) ([]int, int, int) {
 	return pcenters, start, end
 }
 
-// Closure to find minimum integer, since Go doesn't provide one
+// Function to find minimum integer, since Go doesn't provide one
 func min(a, b int) int {
 	if a < b {
 		return a
