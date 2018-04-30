@@ -32,7 +32,7 @@ as a function, and the test data is inside the problem's `main()` function.
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/uniqueStrings.go) - Check if a String is composed of all unique characters
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/intORdouble.go) - Determine if a String is an int or a double
  - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/shortestPalindrome.go) - HARD: Find the shortest palindrome in a String
- - HARD: Print all permutations of a String
+ - [DONE](https://github.com/devedge/GolangPractice/blob/master/ConceptualInterviewProblems/Strings/) - HARD: Print all permutations of a String
  - HARD: Given a single-line text String and a maximum width value, write the function 'String justify(String text, int maxWidth)' that formats the input text using full-justification, i.e., extra spaces on each line are equally distributed between the words; the first word on each line is flushed left and the last word on each line is flushed right
 
 ### Trees
